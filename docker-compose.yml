@@ -1,0 +1,28 @@
+version: '3.8'
+services:
+  app:
+    image: "ghcr.io/chaewonkong/msa-link-api:v0.1.2"
+    ports:
+      - "8080:8080"
+    environment:
+      - DB_HOST=db
+      - DB_USER=admin
+      - DB_PASSWORD=1234
+      - DB_NAME=linkdb
+      - DB_PORT=5432
+      - DB_SSLMODE=disable
+      - DB_TIMEZONE=Asia/Seoul
+    depends_on:
+      - db
+    restart: always
+  db:
+    image: "postgres:latest"
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=1234
+      - POSTGRES_DB=linkdb
+      - POSTGRES_PORT=5432
+    volumes:
+      - ./data:/var/lib/postgresql/data
