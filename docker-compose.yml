@@ -26,3 +26,11 @@ services:
       - POSTGRES_PORT=5432
     volumes:
       - ./data:/var/lib/postgresql/data
+  queue:
+    image: "rabbitmq:3-management"
+    environment:
+      RABBITMQ_DEFAULT_USER: "admin"
+      RABBITMQ_DEFAULT_PASS: "1234"
+    ports:
+      - "5672:5672"
+      - "15672:15672"
