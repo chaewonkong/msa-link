@@ -18,6 +18,7 @@ services:
       - QUEUE_PORT=5672
     depends_on:
       - db
+      - queue
     restart: always
   db:
     image: "postgres:latest"
@@ -38,3 +39,16 @@ services:
     ports:
       - "5672:5672"
       - "15672:15672"
+  scraper:
+    image: "ghcr.io/chaewonkong/msa-link-scraper:v0.1.0"
+    environment:
+      - QUEUE_HOST=queue
+      - QUEUE_USER=admin
+      - QUEUE_PASSWORD=1234
+      - QUEUE_PORT=5672
+      - API_HOST=http://app:8080
+      - QUEUE_NAME=link_queue
+    depends_on:
+      - queue
+      - app
+    restart: always
