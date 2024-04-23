@@ -1,7 +1,7 @@
 version: '3.8'
 services:
   app:
-    image: "ghcr.io/chaewonkong/msa-link-api:v0.1.2"
+    image: "ghcr.io/chaewonkong/msa-link-api:v0.1.4"
     ports:
       - "8080:8080"
     environment:
@@ -10,8 +10,12 @@ services:
       - DB_PASSWORD=1234
       - DB_NAME=linkdb
       - DB_PORT=5432
-      - DB_SSLMODE=disable
+      - DB_SSL_MODE=disable
       - DB_TIMEZONE=Asia/Seoul
+      - QUEUE_HOST=queue
+      - QUEUE_USER=admin
+      - QUEUE_PASSWORD=1234
+      - QUEUE_PORT=5672
     depends_on:
       - db
     restart: always
